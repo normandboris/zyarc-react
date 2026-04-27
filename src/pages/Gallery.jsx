@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 const slides = [
   { img: 'images/inside.png',     caption: 'Interior' },
@@ -11,16 +11,15 @@ const slides = [
 
 export default function Gallery() {
   const [current, setCurrent] = useState(0);
-  const intervalRef = useRef(null);
 
   const goTo = (n) => setCurrent((n + slides.length) % slides.length);
-  const move = (dir) => goTo(current + dir);
+  const move = (dir) => setCurrent(c => (c + dir + slides.length) % slides.length);
 
-  // Auto-advance
+  // Auto-advance — functional updater avoids stale closure
   useEffect(() => {
-    intervalRef.current = setInterval(() => goTo(current + 1), 4000);
-    return () => clearInterval(intervalRef.current);
-  }, [current]);
+    const id = setInterval(() => setCurrent(c => (c + 1) % slides.length), 4000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <main>
