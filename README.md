@@ -76,7 +76,7 @@ git push
 ```
 zyarc-react/
 ├── public/
-│   └── images/          ← Put your food/restaurant images here
+│   └── images/        
 ├── src/
 │   ├── components/
 │   │   ├── Navbar.jsx
