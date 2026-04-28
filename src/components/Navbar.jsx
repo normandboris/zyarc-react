@@ -25,7 +25,7 @@ export default function Navbar() {
 
         {/* Desktop Links */}
         <ul className="hidden md:flex gap-8 list-none items-center">
-          {[['/', 'Home'], ['/menu', 'Menu'], ['/gallery', 'Gallery'], ['/about', 'About'], ['/contact', 'Contact']].map(([to, label]) => (
+          {[['/', 'Home'], ['/menu', 'Menu'], ['/gallery', 'Gallery'], ['/contact', 'Contact']].map(([to, label]) => (
             <li key={to}>
               <NavLink to={to} end={to === '/'} className={linkClass}>{label}</NavLink>
             </li>
@@ -81,7 +81,7 @@ export default function Navbar() {
       {menuOpen && (
         <div className="fixed top-[68px] left-0 w-full bg-[rgba(20,20,20,0.97)] z-[998]
                         px-[5%] py-6 border-b border-[rgba(245,166,35,0.2)] md:hidden">
-          {[['/', 'Home'], ['/menu', 'Menu'], ['/gallery', 'Gallery'], ['/about', 'About'], ['/contact', 'Contact']].map(([to, label]) => (
+          {[['/', 'Home'], ['/menu', 'Menu'], ['/gallery', 'Gallery'], ['/contact', 'Contact']].map(([to, label]) => (
             <NavLink
               key={to}
               to={to}
