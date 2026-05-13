@@ -1,3 +1,4 @@
+# Live app: https://normandboris.github.io/zyarc-react/
 # ZyArc – React + Tailwind CSS
 
 A fast food restaurant website rebuilt in React 18, React Router v6, and Tailwind CSS v3.
