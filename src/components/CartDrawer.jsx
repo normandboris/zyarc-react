@@ -1,7 +1,34 @@
+import { useState } from 'react';
 import { useCart } from '../context/CartContext';
 
 export default function CartDrawer() {
-  const { cart, isOpen, setIsOpen, removeFromCart, changeQty, clearCart, totalPrice } = useCart();
+  // Added placeOrder to the destructured context values
+  const { cart, isOpen, setIsOpen, removeFromCart, changeQty, clearCart, totalPrice, placeOrder } = useCart();
+
+  // New state variables for the checkout form
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [customer, setCustomer] = useState({ name: '', email: '', phone: '' });
+
+  // Handle the final order submission
+  const handleCheckoutSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const result = await placeOrder(customer);
+
+    setIsSubmitting(false);
+
+    if (result.success) {
+      alert('Order placed successfully! Check your MongoDB Atlas database.');
+      // Reset the drawer state after success
+      setIsOpen(false);
+      setIsCheckingOut(false);
+      setCustomer({ name: '', email: '', phone: '' });
+    } else {
+      alert('Failed to place order: ' + result.message);
+    }
+  };
 
   return (
     <>
@@ -101,25 +128,76 @@ export default function CartDrawer() {
               <span className="text-sm uppercase tracking-widest text-[#7a7672] font-bold">Total</span>
               <span className="font-display text-2xl font-bold text-gold">${totalPrice.toFixed(2)}</span>
             </div>
-            <button className="w-full py-4 bg-gold hover:bg-gold2 text-[#111] font-bold rounded-full
-                               text-base tracking-wide transition-all hover:-translate-y-0.5
-                               hover:shadow-[0_6px_20px_rgba(245,166,35,0.35)] cursor-pointer border-none">
-              Proceed to Checkout
-            </button>
-            <button
-              onClick={clearCart}
-              className="w-full py-2.5 bg-transparent border border-[rgba(255,255,255,0.1)] rounded-full
-                         text-[#6a6662] text-xs font-bold uppercase tracking-widest cursor-pointer
-                         flex items-center justify-center gap-2
-                         hover:text-[#e05252] hover:border-[rgba(224,82,82,0.4)] hover:bg-[rgba(224,82,82,0.06)] transition-all"
-            >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="3 6 5 6 21 6"/>
-                <path d="M19 6l-1 14H6L5 6"/>
-                <path d="M10 11v6M14 11v6M9 6V4h6v2"/>
-              </svg>
-              Clear Cart
-            </button>
+
+            {/* Checkout Form Toggle */}
+            {!isCheckingOut ? (
+              <>
+                <button 
+                  onClick={() => setIsCheckingOut(true)}
+                  className="w-full py-4 bg-gold hover:bg-gold2 text-[#111] font-bold rounded-full
+                             text-base tracking-wide transition-all hover:-translate-y-0.5
+                             hover:shadow-[0_6px_20px_rgba(245,166,35,0.35)] cursor-pointer border-none"
+                >
+                  Proceed to Checkout
+                </button>
+                <button
+                  onClick={clearCart}
+                  className="w-full py-2.5 bg-transparent border border-[rgba(255,255,255,0.1)] rounded-full
+                             text-[#6a6662] text-xs font-bold uppercase tracking-widest cursor-pointer
+                             flex items-center justify-center gap-2
+                             hover:text-[#e05252] hover:border-[rgba(224,82,82,0.4)] hover:bg-[rgba(224,82,82,0.06)] transition-all"
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="3 6 5 6 21 6"/>
+                    <path d="M19 6l-1 14H6L5 6"/>
+                    <path d="M10 11v6M14 11v6M9 6V4h6v2"/>
+                  </svg>
+                  Clear Cart
+                </button>
+              </>
+            ) : (
+              <form onSubmit={handleCheckoutSubmit} className="flex flex-col gap-3 mt-2 animate-itemSlide">
+                <input
+                  type="text"
+                  required
+                  placeholder="Your Name"
+                  value={customer.name}
+                  onChange={(e) => setCustomer({...customer, name: e.target.value})}
+                  className="w-full bg-[#1e1e1e] border border-[rgba(255,255,255,0.1)] rounded-lg px-4 py-3 text-cream outline-none focus:border-gold transition-colors"
+                />
+                <input
+                  type="email"
+                  required
+                  placeholder="Email Address"
+                  value={customer.email}
+                  onChange={(e) => setCustomer({...customer, email: e.target.value})}
+                  className="w-full bg-[#1e1e1e] border border-[rgba(255,255,255,0.1)] rounded-lg px-4 py-3 text-cream outline-none focus:border-gold transition-colors"
+                />
+                <input
+                  type="tel"
+                  placeholder="Phone Number (Optional)"
+                  value={customer.phone}
+                  onChange={(e) => setCustomer({...customer, phone: e.target.value})}
+                  className="w-full bg-[#1e1e1e] border border-[rgba(255,255,255,0.1)] rounded-lg px-4 py-3 text-cream outline-none focus:border-gold transition-colors"
+                />
+                <div className="flex gap-3 mt-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsCheckingOut(false)}
+                    className="flex-1 py-3 bg-transparent border border-[rgba(255,255,255,0.1)] rounded-full text-[#6a6662] text-sm font-bold uppercase tracking-wide cursor-pointer hover:text-cream hover:bg-[rgba(255,255,255,0.05)] transition-all"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="flex-1 py-3 bg-green-600 hover:bg-green-500 text-white font-bold rounded-full text-sm uppercase tracking-wide transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed border-none"
+                  >
+                    {isSubmitting ? 'Sending...' : 'Confirm'}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         )}
       </aside>

@@ -1,42 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 
-const menuItems = [
-  {
-    name: 'Classic Smash Burger',
-    desc: 'Double smash patty, American cheese, special sauce, brioche bun.',
-    price: 12.99,
-    img: 'images/burger1.png',
-    cat: 'burger',
-  },
-  {
-    name: 'BBQ Feast Pizza',
-    desc: 'Smoky BBQ base, pulled chicken, red onion, jalapeños, mozzarella.',
-    price: 14.99,
-    img: 'images/bbq-pizza.png',
-    cat: 'pizza',
-  },
-  {
-    name: 'BBQ Bacon Stack',
-    desc: 'Crispy bacon, caramelized onions, BBQ glaze, cheddar, pickle.',
-    price: 14.49,
-    img: 'images/BBQbaconStack.png',
-    cat: 'burger',
-  },
-  {
-    name: 'Golden Crispy Fries',
-    desc: 'Freshly cut potatoes, fried to a golden crisp and perfectly salted.',
-    price: 4.99,
-    img: 'images/fries.png',
-    cat: 'sides',
-  },
-];
-
+// Updated to match the categories seeded in your MongoDB database
 const tabs = [
   { key: 'all', label: 'All Items' },
-  { key: 'burger', label: 'Burgers' },
-  { key: 'pizza', label: 'Pizza' },
+  { key: 'burgers', label: 'Burgers' },
   { key: 'sides', label: 'Sides' },
+  { key: 'drinks', label: 'Drinks' },
 ];
 
 export default function Menu() {
@@ -44,13 +14,43 @@ export default function Menu() {
   const [added, setAdded] = useState({});
   const { addToCart } = useCart();
 
-  const filtered = menuItems.filter(i => activeTab === 'all' || i.cat === activeTab);
+  // NEW: State for our backend data
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // NEW: Fetch live menu from API
+  useEffect(() => {
+    const fetchMenu = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/menu`);
+        if (!response.ok) throw new Error('Failed to fetch menu items');
+        const data = await response.json();
+        setMenuItems(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMenu();
+  }, []);
+
+  // Filter based on the backend 'category' field (lowercased to match our keys)
+  const filtered = menuItems.filter(i => 
+    activeTab === 'all' || (i.category && i.category.toLowerCase() === activeTab)
+  );
 
   const handleAdd = (item) => {
-    addToCart(item.name, item.price, item.img);
+    // Note: Passed item.image since our backend uses 'image' instead of 'img'
+    addToCart(item.name, item.price, item.image);
     setAdded(p => ({ ...p, [item.name]: true }));
     setTimeout(() => setAdded(p => ({ ...p, [item.name]: false })), 900);
   };
+
+  if (loading) return <div className="h-screen bg-dark flex items-center justify-center text-2xl text-cream">Loading Live Menu...</div>;
+  if (error) return <div className="h-screen bg-dark flex items-center justify-center text-xl text-red-500">Error: {error}</div>;
 
   return (
     <main>
@@ -81,18 +81,18 @@ export default function Menu() {
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filtered.map(item => (
-            <div key={item.name}
+            <div key={item._id}
                  className="bg-dark2 rounded-xl overflow-hidden border border-[rgba(255,255,255,0.05)]
                             transition-all duration-250 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(0,0,0,0.4)]
                             animate-fadeIn">
               <img
-                src={item.img}
+                src={item.image} 
                 alt={item.name}
                 className="w-full h-[190px] object-cover object-center block bg-dark3"
               />
               <div className="p-5">
                 <h3 className="font-display text-cream text-lg mb-1">{item.name}</h3>
-                <p className="text-xs text-[#7a7672] mb-4 leading-relaxed">{item.desc}</p>
+                <p className="text-xs text-[#7a7672] mb-4 leading-relaxed">{item.description}</p> 
                 <div className="flex items-center justify-between">
                   <span className="text-xl font-bold text-gold">${item.price.toFixed(2)}</span>
                   <button

@@ -57,11 +57,44 @@ export function CartProvider({ children }) {
   const totalItems = cart.reduce((s, i) => s + i.qty, 0);
   const totalPrice = cart.reduce((s, i) => s + i.price * i.qty, 0);
 
+  // NEW: Sends the cart to the backend when an order is placed
+  const placeOrder = async (customerDetails) => {
+    try {
+      const orderData = {
+        customerDetails: customerDetails,
+        items: cart,
+        totalAmount: totalPrice
+      };
+
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/orders`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to place order');
+      }
+
+      const result = await response.json();
+      console.log('Order Success:', result);
+      
+      clearCart(); // Automatically empty cart after success
+
+      return { success: true, message: result.message };
+    } catch (error) {
+      console.error('Checkout Error:', error);
+      return { success: false, message: error.message };
+    }
+  };
+
   return (
     <CartContext.Provider value={{
       cart, isOpen, setIsOpen,
       addToCart, removeFromCart, changeQty, clearCart,
-      totalItems, totalPrice
+      totalItems, totalPrice, placeOrder
     }}>
       {children}
     </CartContext.Provider>
