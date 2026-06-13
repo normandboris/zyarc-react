@@ -28,6 +28,7 @@ export default function Navbar() {
     ['/', 'Home'],
     ['/menu', 'Menu'],
     ['/gallery', 'Gallery'],
+    ['/about', 'About'],
     ['/contact', 'Contact'],
   ];
 
