@@ -13,9 +13,8 @@ export default {
         muted: '#d4cfc8',
       },
       fontFamily: {
-        script:   ['"Dancing Script"', 'cursive'],
-        display:  ['"Playfair Display"', 'serif'],
-        sans:     ['Lato', 'sans-serif'],
+        display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        sans:     ['Inter', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         badgePop: {

@@ -1,4 +1,5 @@
-import { Routes, Route, ScrollRestoration } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
 import CartDrawer from './components/CartDrawer';
@@ -8,17 +9,36 @@ import Menu from './pages/Menu';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 
-export default function App() {
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
+function AnimatedRoutes() {
+  const location = useLocation();
+
   return (
-    <CartProvider>
-      <Navbar />
-      <CartDrawer />
-      <Routes>
+    <div key={location.pathname} className="animate-fadeIn">
+      <Routes location={location}>
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <CartProvider>
+      <ScrollToTop />
+      <Navbar />
+      <CartDrawer />
+      <AnimatedRoutes />
       <Footer />
     </CartProvider>
   );

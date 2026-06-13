@@ -1,0 +1,51 @@
+/** Static menu used when the API is unavailable */
+export const fallbackMenu = [
+  {
+    _id: 'fb-1',
+    name: 'Classic ZyArc Burger',
+    description: 'Juicy beef patty, melted cheddar, crisp lettuce, tomato, and our secret sauce on a toasted brioche bun.',
+    price: 12.99,
+    category: 'burgers',
+    image: 'images/classic-burger.jpg',
+  },
+  {
+    _id: 'fb-2',
+    name: 'BBQ Bacon Stack',
+    description: 'Double patty, crispy bacon, cheddar, onion rings, and smoky BBQ sauce — a towering favorite.',
+    price: 15.49,
+    category: 'burgers',
+    image: 'images/BBQbaconStack.png',
+  },
+  {
+    _id: 'fb-3',
+    name: 'Golden Crispy Fries',
+    description: 'Hand-cut potatoes, fried to perfection and seasoned with our house blend.',
+    price: 4.99,
+    category: 'sides',
+    image: 'images/fries.png',
+  },
+  {
+    _id: 'fb-4',
+    name: 'BBQ Feast Pizza',
+    description: 'Smoky BBQ base, grilled chicken, red onion, and mozzarella on a crispy thin crust.',
+    price: 14.99,
+    category: 'sides',
+    image: 'images/bbq-pizza.png',
+  },
+  {
+    _id: 'fb-5',
+    name: 'House Lemonade',
+    description: 'Fresh-squeezed lemons with a hint of mint — sweet, tart, and ice-cold.',
+    price: 3.49,
+    category: 'drinks',
+    image: 'images/3.jpg',
+  },
+  {
+    _id: 'fb-6',
+    name: 'Craft Root Beer',
+    description: 'Small-batch root beer with vanilla and sassafras notes, served ice cold.',
+    price: 2.99,
+    category: 'drinks',
+    image: 'images/3.jpg',
+  },
+];
