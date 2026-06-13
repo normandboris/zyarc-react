@@ -4,29 +4,33 @@ export default function Footer() {
   return (
     <footer className="bg-[#0e0e0e] border-t border-[rgba(255,255,255,0.05)] px-[5%] pt-12 pb-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-8">
-        {/* Brand */}
         <div>
-          <span className="font-script text-3xl text-cream block mb-2">ZyArc</span>
+          <span className="font-display text-2xl font-bold text-cream block mb-2 tracking-tight">ZyArc</span>
           <p className="text-sm text-[#7a7672] leading-relaxed">
             We serve the finest fast food crafted with love and the freshest ingredients.
           </p>
           <div className="flex gap-3 mt-4">
-            {[['fa-facebook','https://facebook.com'], ['fa-twitter','https://twitter.com'], ['fa-instagram','https://instagram.com']].map(([icon, href]) => (
-              <a key={icon} href={href} target="_blank" rel="noreferrer"
-                 className="w-9 h-9 rounded-full bg-dark3 border border-[rgba(255,255,255,0.07)]
-                            flex items-center justify-center text-[#7a7672] text-sm
-                            hover:text-gold hover:border-[rgba(245,166,35,0.4)] hover:bg-[rgba(245,166,35,0.08)] transition-all no-underline">
-                <i className={`fa ${icon}`} />
+            {[['fa-facebook', 'https://facebook.com'], ['fa-twitter', 'https://twitter.com'], ['fa-instagram', 'https://instagram.com']].map(([icon, href]) => (
+              <a
+                key={icon}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={icon.replace('fa-', '')}
+                className="w-9 h-9 rounded-full bg-dark3 border border-[rgba(255,255,255,0.07)]
+                           flex items-center justify-center text-[#7a7672] text-sm
+                           hover:text-gold hover:border-[rgba(245,166,35,0.4)] hover:bg-[rgba(245,166,35,0.08)] transition-all no-underline"
+              >
+                <i className={`fa ${icon}`} aria-hidden="true" />
               </a>
             ))}
           </div>
         </div>
 
-        {/* Quick links */}
         <div>
-          <h4 className="font-display text-cream text-base mb-4">Quick Links</h4>
+          <h4 className="font-display font-semibold text-cream text-base mb-4">Quick Links</h4>
           <ul className="flex flex-col gap-2 list-none">
-            {[['/', 'Home'], ['/menu', 'Menu'], ['/contact', 'Contact']].map(([to, label]) => (
+            {[['/', 'Home'], ['/menu', 'Menu'], ['/gallery', 'Gallery'], ['/contact', 'Contact']].map(([to, label]) => (
               <li key={to}>
                 <Link to={to} className="text-sm text-[#7a7672] hover:text-gold no-underline transition-colors">
                   {label}
@@ -36,15 +40,17 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Hours */}
         <div>
-          <h4 className="font-display text-cream text-base mb-4">Business Hours</h4>
+          <h4 className="font-display font-semibold text-cream text-base mb-4">Business Hours</h4>
           <ul className="flex flex-col gap-2 list-none">
             <li className="flex justify-between text-sm text-[#7a7672]">
               <span>Mon – Thu</span><span className="text-gold">10am – 10pm</span>
             </li>
             <li className="flex justify-between text-sm text-[#7a7672]">
               <span>Fri – Sat</span><span className="text-gold">10am – 12am</span>
+            </li>
+            <li className="flex justify-between text-sm text-[#7a7672]">
+              <span>Sunday</span><span className="text-gold">11am – 9pm</span>
             </li>
           </ul>
         </div>
