@@ -2,12 +2,18 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import PageHero from '../components/PageHero';
 
 const slides = [
-  { img: 'images/inside.png', caption: 'Interior' },
-  { img: 'images/inside2.png', caption: 'Interior' },
-  { img: 'images/restaurant.png', caption: 'Our Burgers' },
+  { img: 'images/inside.png', caption: 'Cozy dining room' },
+  { img: 'images/inside2.png', caption: 'Warm interior vibes' },
+  { img: 'images/restaurant.png', caption: 'The ZyArc kitchen' },
+  { img: 'images/heroburger.png', caption: 'Signature hero burger' },
+  { img: 'images/classic-burger.jpg', caption: 'Classic ZyArc Burger' },
+  { img: 'images/BBQbaconStack.png', caption: 'BBQ Bacon Stack' },
+  { img: 'images/bbq-pizza.png', caption: 'BBQ Feast Pizza' },
+  { img: 'images/fries.png', caption: 'Golden crispy fries' },
   { img: 'images/ab.png', caption: 'Fresh off the grill' },
   { img: 'images/bc.png', caption: 'Made to order' },
-  { img: 'images/cd.png', caption: 'The ZyArc experience' },
+  { img: 'images/cd.png', caption: 'Plated to perfection' },
+  { img: 'images/3.jpg', caption: 'Ice-cold refreshments' },
 ];
 
 export default function Gallery() {
@@ -30,27 +36,25 @@ export default function Gallery() {
 
       <section className="px-[5%] py-16 bg-dark">
         <div
-          className="relative overflow-hidden rounded-2xl border border-[rgba(245,166,35,0.15)] bg-dark2 max-w-5xl mx-auto"
+          className="relative overflow-hidden rounded-2xl border border-goldline bg-dark2 max-w-5xl mx-auto"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
           <div className="slider-track" style={{ transform: `translateX(-${current * 100}%)` }}>
             {slides.map((s, i) => (
-              <div key={i} className="min-w-full h-[460px] max-sm:h-[280px] relative overflow-hidden flex-shrink-0">
+              <div key={s.img} className="min-w-full h-[460px] max-sm:h-[280px] relative overflow-hidden flex-shrink-0">
                 <img
                   src={s.img}
-                  alt={s.caption || `Gallery photo ${i + 1}`}
+                  alt={s.caption}
                   loading={i === 0 ? 'eager' : 'lazy'}
                   className="w-full h-full object-cover object-center block"
                 />
-                {s.caption && (
-                  <div
-                    className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent
-                                px-8 pb-6 pt-10 font-display text-xl text-cream"
-                  >
-                    {s.caption}
-                  </div>
-                )}
+                <div
+                  className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent
+                              px-8 pb-6 pt-10 font-display text-xl text-cream"
+                >
+                  {s.caption}
+                </div>
               </div>
             ))}
           </div>
@@ -60,7 +64,7 @@ export default function Gallery() {
               key={dir}
               onClick={() => move(dir === 'prev' ? -1 : 1)}
               aria-label={dir === 'prev' ? 'Previous slide' : 'Next slide'}
-              className={`absolute top-1/2 -translate-y-1/2 bg-[rgba(245,166,35,0.85)] hover:bg-gold
+              className={`absolute top-1/2 -translate-y-1/2 bg-gold/85 hover:bg-gold
                           border-none rounded-full w-11 h-11 text-xl text-[#111] cursor-pointer z-10 font-bold
                           transition-all flex items-center justify-center
                           ${dir === 'prev' ? 'left-4' : 'right-4'}`}
@@ -69,35 +73,69 @@ export default function Gallery() {
             </button>
           ))}
 
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                aria-label={`Go to slide ${i + 1}`}
-                aria-current={i === current ? 'true' : undefined}
-                className={`rounded-full border-2 border-[rgba(245,166,35,0.6)] cursor-pointer transition-all
-                            ${i === current ? 'w-5 h-2.5 bg-gold border-gold' : 'w-2.5 h-2.5 bg-transparent'}`}
-              />
-            ))}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[var(--hero-overlay)] px-4 py-1.5 rounded-full
+                          text-xs font-semibold text-cream tracking-wider">
+            {current + 1} / {slides.length}
           </div>
         </div>
 
         {/* Thumbnail grid */}
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 max-w-5xl mx-auto mt-6">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 max-w-5xl mx-auto mt-6">
           {slides.map((s, i) => (
             <button
-              key={i}
+              key={s.img}
               onClick={() => goTo(i)}
-              aria-label={`View ${s.caption || `photo ${i + 1}`}`}
+              aria-label={`View ${s.caption}`}
+              aria-current={i === current ? 'true' : undefined}
               className={`rounded-lg overflow-hidden border-2 transition-all aspect-[4/3]
                           ${i === current
-                            ? 'border-gold scale-[1.02] shadow-[0_4px_16px_rgba(245,166,35,0.25)]'
-                            : 'border-transparent opacity-70 hover:opacity-100 hover:border-[rgba(245,166,35,0.4)]'}`}
+                            ? 'border-gold scale-[1.02] shadow-gold-btn'
+                            : 'border-transparent opacity-70 hover:opacity-100 hover:border-gold-strong'}`}
             >
               <img src={s.img} alt="" className="w-full h-full object-cover block" loading="lazy" />
             </button>
           ))}
+        </div>
+
+        {/* Full grid */}
+        <div className="max-w-5xl mx-auto mt-16">
+          <div className="text-center mb-8">
+            <span className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-gold block mb-2">
+              Full Collection
+            </span>
+            <h2 className="font-display font-bold text-[clamp(1.4rem,2.5vw,2rem)] text-cream tracking-tight">
+              Every Angle of ZyArc
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {slides.map((s, i) => (
+              <button
+                key={`grid-${s.img}`}
+                onClick={() => {
+                  goTo(i);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="group relative rounded-xl overflow-hidden border border-light
+                           aspect-[4/3] cursor-pointer text-left"
+              >
+                <img
+                  src={s.img}
+                  alt={s.caption}
+                  loading="lazy"
+                  className="w-full h-full object-cover block transition-transform duration-300
+                             group-hover:scale-105"
+                />
+                <div
+                  className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent
+                             opacity-0 group-hover:opacity-100 transition-opacity duration-300
+                             flex items-end p-4"
+                >
+                  <span className="font-display text-sm text-cream font-semibold">{s.caption}</span>
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
       </section>
     </main>

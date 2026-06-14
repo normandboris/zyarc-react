@@ -4,17 +4,35 @@ export default {
   theme: {
     extend: {
       colors: {
-        gold:  '#f5a623',
-        gold2: '#e8920f',
-        dark:  '#141414',
-        dark2: '#1c1c1c',
-        dark3: '#242424',
-        cream: '#f5f0e8',
-        muted: '#d4cfc8',
+        gold:      'var(--gold)',
+        gold2:     'var(--gold2)',
+        dark:      'var(--bg)',
+        dark2:     'var(--bg2)',
+        dark3:     'var(--bg3)',
+        deep:      'var(--bg-deep)',
+        card:      'var(--bg-card)',
+        elevated:  'var(--bg-elevated)',
+        cream:     'var(--cream)',
+        muted:     'var(--text-muted)',
+        subtle:    'var(--text-subtle)',
+        body:      'var(--text-body)',
+        faint:     'var(--text-faint)',
+        dim:       'var(--text-dim)',
+        secondary: 'var(--text-secondary)',
+      },
+      borderColor: {
+        subtle:   'var(--border-subtle)',
+        light:    'var(--border-light)',
+        medium:   'var(--border-medium)',
+        goldline: 'var(--border-gold)',
+      },
+      backgroundColor: {
+        nav:        'var(--nav-bg)',
+        'nav-mobile': 'var(--nav-mobile-bg)',
       },
       fontFamily: {
         display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-        sans:     ['Inter', 'system-ui', 'sans-serif'],
+        sans:    ['Inter', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         badgePop: {
@@ -40,4 +58,4 @@ export default {
     },
   },
   plugins: [],
-}
+};

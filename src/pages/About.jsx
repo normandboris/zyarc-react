@@ -41,23 +41,23 @@ export default function About() {
             <h2 className="font-display font-bold text-[clamp(1.6rem,3vw,2.2rem)] text-cream tracking-tight mb-5">
               Bold flavors, honest food, NYC energy
             </h2>
-            <p className="text-sm text-[#9e9993] leading-relaxed mb-4">
+            <p className="text-sm text-body leading-relaxed mb-4">
               ZyArc started with a simple idea: fast food shouldn&apos;t mean cutting corners. What began as a
               single grill on Burger Lane has grown into a neighborhood favorite — a place where the burgers
               are stacked high, the fries stay crispy, and every guest leaves satisfied.
             </p>
-            <p className="text-sm text-[#9e9993] leading-relaxed mb-4">
+            <p className="text-sm text-body leading-relaxed mb-4">
               We blend classic American comfort food with a modern twist. Our team works hard behind the
               scenes so your experience out front is effortless — whether you&apos;re dining in, grabbing
               pickup, or ordering from the couch.
             </p>
-            <p className="text-sm text-[#9e9993] leading-relaxed">
+            <p className="text-sm text-body leading-relaxed">
               At ZyArc, we believe great food brings people together. That&apos;s the mission behind every
               patty we flip and every order we pack.
             </p>
           </div>
 
-          <div className="rounded-2xl overflow-hidden border border-[rgba(245,166,35,0.15)] shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+          <div className="rounded-2xl overflow-hidden border border-goldline shadow-card-hover">
             <img
               src="images/restaurant.png"
               alt="Inside ZyArc restaurant"
@@ -69,7 +69,7 @@ export default function About() {
       </section>
 
       {/* Values */}
-      <section className="px-[5%] py-20 bg-dark2 border-y border-[rgba(245,166,35,0.08)]">
+      <section className="px-[5%] py-20 bg-dark2 border-y border-goldline">
         <div className="text-center mb-12">
           <span className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-gold block mb-2">
             What Drives Us
@@ -83,13 +83,13 @@ export default function About() {
           {values.map(v => (
             <div
               key={v.title}
-              className="p-6 rounded-xl bg-dark3 border border-[rgba(255,255,255,0.05)] text-center"
+              className="p-6 rounded-xl bg-dark3 border border-subtle text-center"
             >
               <div className="text-gold text-3xl mb-4">
                 <i className={`fa ${v.icon}`} aria-hidden="true" />
               </div>
               <h3 className="font-display font-semibold text-cream text-lg mb-2">{v.title}</h3>
-              <p className="text-sm text-[#7a7672] leading-relaxed">{v.desc}</p>
+              <p className="text-sm text-subtle leading-relaxed">{v.desc}</p>
             </div>
           ))}
         </div>
@@ -110,7 +110,7 @@ export default function About() {
           {milestones.map(m => (
             <div
               key={m.year}
-              className="flex gap-6 pb-8 ml-4 pl-8 relative border-l-2 border-[rgba(245,166,35,0.25)] last:pb-0"
+              className="flex gap-6 pb-8 ml-4 pl-8 relative border-l-2 border-[color:var(--gold-border)] last:pb-0"
             >
               <span
                 className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-gold border-2 border-dark"
@@ -118,7 +118,7 @@ export default function About() {
               />
               <div>
                 <span className="font-display font-bold text-gold text-lg block mb-1">{m.year}</span>
-                <p className="text-sm text-[#9e9993] leading-relaxed">{m.event}</p>
+                <p className="text-sm text-body leading-relaxed">{m.event}</p>
               </div>
             </div>
           ))}
@@ -131,7 +131,7 @@ export default function About() {
           <h2 className="font-display font-bold text-2xl text-cream mb-3 tracking-tight">
             Ready to taste the difference?
           </h2>
-          <p className="text-sm text-[#7a7672] mb-8">
+          <p className="text-sm text-subtle mb-8">
             Browse our full menu or stop by — we&apos;d love to serve you.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
@@ -139,14 +139,14 @@ export default function About() {
               to="/menu"
               className="inline-block bg-gold hover:bg-gold2 text-[#111] font-bold py-3 px-8 rounded-full
                          text-sm transition-all duration-200 hover:-translate-y-0.5 no-underline
-                         hover:shadow-[0_6px_20px_rgba(245,166,35,0.35)]"
+                         hover:shadow-gold-btn"
             >
               View Menu
             </Link>
             <Link
               to="/contact"
-              className="inline-block border border-[rgba(255,255,255,0.15)] text-muted hover:text-cream
-                         hover:border-[rgba(245,166,35,0.4)] font-bold py-3 px-8 rounded-full text-sm
+              className="inline-block border border-medium text-muted hover:text-cream
+                         hover:border-gold-strong font-bold py-3 px-8 rounded-full text-sm
                          transition-all duration-200 no-underline"
             >
               Contact Us

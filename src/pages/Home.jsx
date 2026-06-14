@@ -58,13 +58,13 @@ export default function Home() {
     <main>
       {/* Hero */}
       <section className="min-h-screen flex items-center px-[5%] pt-[100px] pb-16 relative overflow-hidden
-                           bg-gradient-to-br from-[#0e0e0e] via-[#141414] to-[#1a1a1a]">
+                           theme-gradient-hero">
         <div className="max-w-xl z-[2] animate-fadeIn">
           <span className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-gold block mb-3">Welcome to ZyArc</span>
           <h1 className="font-display font-extrabold text-[clamp(2.4rem,5.5vw,3.75rem)] text-cream leading-[1.08] tracking-tight mb-5">
             Fast Food<br />Restaurant
           </h1>
-          <p className="text-[#9e9993] text-base leading-relaxed mb-8 max-w-md">
+          <p className="text-body text-base leading-relaxed mb-8 max-w-md">
             From juicy, flavor-packed burgers to feast pizzas and perfectly golden fries,
             every bite is made to steal the show. Come hungry, leave happy!
           </p>
@@ -73,13 +73,13 @@ export default function Home() {
               to="/menu"
               className="inline-block bg-gold hover:bg-gold2 text-[#111] font-bold py-3 px-8 rounded-full
                          text-sm transition-all duration-200 hover:-translate-y-0.5 no-underline
-                         hover:shadow-[0_6px_20px_rgba(245,166,35,0.35)]"
+                         hover:shadow-gold-btn"
             >
               Order Now
             </Link>
             <Link
               to="/gallery"
-              className="inline-block border-2 border-[rgba(245,166,35,0.4)] text-gold hover:bg-[rgba(245,166,35,0.08)]
+              className="inline-block border-2 border-gold-strong text-gold hover:bg-gold-subtle
                          font-bold py-3 px-8 rounded-full text-sm transition-all duration-200 no-underline
                          hover:-translate-y-0.5"
             >
@@ -103,19 +103,19 @@ export default function Home() {
       {/* Features */}
       <div
         className="bg-dark2 px-[5%] py-10 grid grid-cols-1 md:grid-cols-3 gap-6
-                   border-t border-[rgba(245,166,35,0.1)]"
+                   border-t border-goldline"
       >
         {features.map(f => (
           <div
             key={f.title}
-            className="flex items-center gap-4 p-4 rounded-lg bg-dark3 border border-[rgba(255,255,255,0.05)]"
+            className="flex items-center gap-4 p-4 rounded-lg bg-dark3 border border-subtle"
           >
             <div className="text-gold text-3xl w-12 flex-shrink-0 text-center">
               <i className={`fa ${f.icon}`} aria-hidden="true" />
             </div>
             <div>
               <h4 className="font-display font-semibold text-cream text-base mb-0.5">{f.title}</h4>
-              <p className="text-xs text-[#7a7672]">{f.desc}</p>
+              <p className="text-xs text-subtle">{f.desc}</p>
             </div>
           </div>
         ))}
@@ -132,8 +132,8 @@ export default function Home() {
           {featured.map(item => (
             <article
               key={item.name}
-              className="bg-dark2 rounded-xl overflow-hidden border border-[rgba(255,255,255,0.05)]
-                         transition-all duration-250 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(0,0,0,0.4)]"
+              className="bg-dark2 rounded-xl overflow-hidden border border-subtle
+                         transition-all duration-250 hover:-translate-y-1 hover:shadow-card-hover"
             >
               <div className="relative">
                 <img
@@ -156,7 +156,7 @@ export default function Home() {
                 </div>
                 <button
                   onClick={() => handleQuickAdd(item)}
-                  className="flex-shrink-0 w-10 h-10 rounded-full bg-[rgba(245,166,35,0.1)] text-gold border border-gold
+                  className="flex-shrink-0 w-10 h-10 rounded-full bg-gold-subtle text-gold border border-gold
                              flex items-center justify-center text-xl cursor-pointer
                              hover:bg-gold hover:text-[#111] transition-all hover:scale-110"
                   aria-label={`Add ${item.name} to cart`}
@@ -180,7 +180,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="px-[5%] py-20 bg-dark2 border-y border-[rgba(245,166,35,0.08)]">
+      <section className="px-[5%] py-20 bg-dark2 border-y border-goldline">
         <div className="text-center mb-12">
           <span className="font-sans text-xs font-semibold uppercase tracking-[0.22em] text-gold block mb-2">What People Say</span>
           <h2 className="font-display font-bold text-[clamp(1.6rem,3vw,2.4rem)] text-cream tracking-tight">Loved by Locals</h2>
@@ -190,12 +190,12 @@ export default function Home() {
           {testimonials.map(t => (
             <blockquote
               key={t.name}
-              className="bg-dark3 p-6 rounded-xl border border-[rgba(255,255,255,0.05)] flex flex-col gap-4"
+              className="bg-dark3 p-6 rounded-xl border border-subtle flex flex-col gap-4"
             >
               <div className="text-gold text-sm" aria-label={`${t.rating} out of 5 stars`}>
                 {'★'.repeat(t.rating)}
               </div>
-              <p className="text-sm text-[#9e9993] leading-relaxed italic flex-1">&ldquo;{t.quote}&rdquo;</p>
+              <p className="text-sm text-body leading-relaxed italic flex-1">&ldquo;{t.quote}&rdquo;</p>
               <footer className="text-cream font-sans text-sm font-medium">— {t.name}</footer>
             </blockquote>
           ))}
@@ -206,7 +206,7 @@ export default function Home() {
       <section className="px-[5%] py-20 bg-dark">
         <div
           className="max-w-4xl mx-auto text-center rounded-2xl p-10 md:p-14
-                     bg-gradient-to-br from-dark2 to-dark3 border border-[rgba(245,166,35,0.2)]
+                     bg-gradient-to-br from-dark2 to-dark3 border border-goldline
                      relative overflow-hidden"
         >
           <div
@@ -217,7 +217,7 @@ export default function Home() {
           <h2 className="font-display font-bold text-[clamp(1.6rem,3vw,2.2rem)] text-cream mb-4 relative tracking-tight">
             Order pickup or stop by today
           </h2>
-          <p className="text-[#7a7672] text-sm mb-8 max-w-md mx-auto relative">
+          <p className="text-subtle text-sm mb-8 max-w-md mx-auto relative">
             Open daily from 10am. Find us at 123 Burger Lane, Manhattan — or order online in seconds.
           </p>
           <div className="flex flex-wrap gap-4 justify-center relative">
@@ -225,14 +225,14 @@ export default function Home() {
               to="/menu"
               className="inline-block bg-gold hover:bg-gold2 text-[#111] font-bold py-3 px-8 rounded-full
                          text-sm transition-all duration-200 hover:-translate-y-0.5 no-underline
-                         hover:shadow-[0_6px_20px_rgba(245,166,35,0.35)]"
+                         hover:shadow-gold-btn"
             >
               Order Online
             </Link>
             <Link
               to="/contact"
-              className="inline-block border border-[rgba(255,255,255,0.15)] text-muted hover:text-cream
-                         hover:border-[rgba(245,166,35,0.4)] font-bold py-3 px-8 rounded-full text-sm
+              className="inline-block border border-medium text-muted hover:text-cream
+                         hover:border-gold-strong font-bold py-3 px-8 rounded-full text-sm
                          transition-all duration-200 no-underline"
             >
               Get Directions
