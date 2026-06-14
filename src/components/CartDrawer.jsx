@@ -35,7 +35,7 @@ export default function CartDrawer() {
       <div onClick={() => setIsOpen(false)} className={`cart-overlay ${isOpen ? 'open' : ''}`} />
 
       <aside className={`cart-drawer ${isOpen ? 'open' : ''}`} aria-hidden={!isOpen}>
-        <div className="flex items-center justify-between px-6 py-[1.4rem] border-b border-[rgba(255,255,255,0.07)] bg-[#141414] flex-shrink-0">
+        <div className="flex items-center justify-between px-6 py-[1.4rem] border-b border-light bg-dark flex-shrink-0">
           <div className="flex items-center gap-3 text-gold">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
@@ -46,9 +46,9 @@ export default function CartDrawer() {
           <button
             onClick={() => setIsOpen(false)}
             aria-label="Close cart"
-            className="bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.1)] rounded-full
+            className="bg-dark3 border border-medium rounded-full
                        w-9 h-9 flex items-center justify-center text-muted cursor-pointer
-                       hover:bg-[rgba(245,166,35,0.15)] hover:text-gold hover:border-[rgba(245,166,35,0.4)] transition-all"
+                       hover:bg-gold-subtle hover:text-gold hover:border-gold-strong transition-all"
           >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
               <path d="M1 1l16 16M17 1L1 17" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
@@ -60,14 +60,14 @@ export default function CartDrawer() {
           <div className="flex-1 flex flex-col items-center justify-center gap-2 text-center p-8">
             <div className="text-6xl opacity-70 mb-2" aria-hidden="true">🛒</div>
             <p className="font-display text-lg text-cream">Your cart is empty</p>
-            <span className="text-sm text-[#5a5652]">Add something delicious!</span>
+            <span className="text-sm text-faint">Add something delicious!</span>
           </div>
         ) : (
           <div className="flex-1 overflow-y-auto px-6 py-4 flex flex-col gap-3">
             {cart.map(item => (
               <div
                 key={item.name}
-                className="flex items-start gap-4 bg-[#1e1e1e] border border-[rgba(255,255,255,0.05)]
+                className="flex items-start gap-4 bg-elevated border border-subtle
                            rounded-xl p-3 relative animate-itemSlide"
               >
                 <div className="w-[62px] h-[62px] rounded-lg overflow-hidden bg-dark3 flex-shrink-0">
@@ -86,8 +86,8 @@ export default function CartDrawer() {
                     <button
                       onClick={() => changeQty(item.name, -1)}
                       aria-label={`Decrease ${item.name} quantity`}
-                      className="w-[26px] h-[26px] rounded-full border border-[rgba(245,166,35,0.4)]
-                                 bg-[rgba(245,166,35,0.08)] text-gold text-lg flex items-center justify-center
+                      className="w-[26px] h-[26px] rounded-full border border-gold-strong
+                                 bg-gold-subtle text-gold text-lg flex items-center justify-center
                                  cursor-pointer hover:bg-gold hover:text-[#111] hover:border-gold transition-all"
                     >
                       −
@@ -96,8 +96,8 @@ export default function CartDrawer() {
                     <button
                       onClick={() => changeQty(item.name, 1)}
                       aria-label={`Increase ${item.name} quantity`}
-                      className="w-[26px] h-[26px] rounded-full border border-[rgba(245,166,35,0.4)]
-                                 bg-[rgba(245,166,35,0.08)] text-gold text-lg flex items-center justify-center
+                      className="w-[26px] h-[26px] rounded-full border border-gold-strong
+                                 bg-gold-subtle text-gold text-lg flex items-center justify-center
                                  cursor-pointer hover:bg-gold hover:text-[#111] hover:border-gold transition-all"
                     >
                       +
@@ -107,7 +107,7 @@ export default function CartDrawer() {
 
                 <button
                   onClick={() => removeFromCart(item.name)}
-                  className="bg-transparent border-none text-[#4a4744] cursor-pointer hover:text-[#e05252] transition-colors mt-0.5"
+                  className="bg-transparent border-none text-dim cursor-pointer hover:text-[#e05252] transition-colors mt-0.5"
                   title="Remove"
                   aria-label={`Remove ${item.name} from cart`}
                 >
@@ -121,10 +121,10 @@ export default function CartDrawer() {
         )}
 
         {cart.length > 0 && (
-          <div className="px-6 py-[1.4rem] border-t border-[rgba(255,255,255,0.07)] bg-[#141414]
+          <div className="px-6 py-[1.4rem] border-t border-light bg-dark
                           flex-shrink-0 flex flex-col gap-3">
             <div className="flex items-center justify-between py-1">
-              <span className="text-sm uppercase tracking-widest text-[#7a7672] font-bold">Total</span>
+              <span className="text-sm uppercase tracking-widest text-subtle font-bold">Total</span>
               <span className="font-display text-2xl font-bold text-gold">${totalPrice.toFixed(2)}</span>
             </div>
 
@@ -134,16 +134,16 @@ export default function CartDrawer() {
                   onClick={() => setIsCheckingOut(true)}
                   className="w-full py-4 bg-gold hover:bg-gold2 text-[#111] font-bold rounded-full
                              text-base tracking-wide transition-all hover:-translate-y-0.5
-                             hover:shadow-[0_6px_20px_rgba(245,166,35,0.35)] cursor-pointer border-none"
+                             hover:shadow-gold-btn cursor-pointer border-none"
                 >
                   Proceed to Checkout
                 </button>
                 <button
                   onClick={clearCart}
-                  className="w-full py-2.5 bg-transparent border border-[rgba(255,255,255,0.1)] rounded-full
-                             text-[#6a6662] text-xs font-bold uppercase tracking-widest cursor-pointer
+                  className="w-full py-2.5 bg-transparent border border-medium rounded-full
+                             text-secondary text-xs font-bold uppercase tracking-widest cursor-pointer
                              flex items-center justify-center gap-2
-                             hover:text-[#e05252] hover:border-[rgba(224,82,82,0.4)] hover:bg-[rgba(224,82,82,0.06)] transition-all"
+                             hover:text-[#e05252] hover:border-error hover:bg-error-subtle transition-all"
                 >
                   Clear Cart
                 </button>
@@ -156,7 +156,7 @@ export default function CartDrawer() {
                   placeholder="Your Name"
                   value={customer.name}
                   onChange={e => setCustomer({ ...customer, name: e.target.value })}
-                  className="w-full bg-[#1e1e1e] border border-[rgba(255,255,255,0.1)] rounded-lg px-4 py-3 text-cream outline-none focus:border-gold transition-colors"
+                  className="w-full bg-elevated border border-medium rounded-lg px-4 py-3 text-cream outline-none focus:border-gold transition-colors"
                 />
                 <input
                   type="email"
@@ -164,20 +164,20 @@ export default function CartDrawer() {
                   placeholder="Email Address"
                   value={customer.email}
                   onChange={e => setCustomer({ ...customer, email: e.target.value })}
-                  className="w-full bg-[#1e1e1e] border border-[rgba(255,255,255,0.1)] rounded-lg px-4 py-3 text-cream outline-none focus:border-gold transition-colors"
+                  className="w-full bg-elevated border border-medium rounded-lg px-4 py-3 text-cream outline-none focus:border-gold transition-colors"
                 />
                 <input
                   type="tel"
                   placeholder="Phone Number (Optional)"
                   value={customer.phone}
                   onChange={e => setCustomer({ ...customer, phone: e.target.value })}
-                  className="w-full bg-[#1e1e1e] border border-[rgba(255,255,255,0.1)] rounded-lg px-4 py-3 text-cream outline-none focus:border-gold transition-colors"
+                  className="w-full bg-elevated border border-medium rounded-lg px-4 py-3 text-cream outline-none focus:border-gold transition-colors"
                 />
                 <div className="flex gap-3 mt-2">
                   <button
                     type="button"
                     onClick={() => setIsCheckingOut(false)}
-                    className="flex-1 py-3 bg-transparent border border-[rgba(255,255,255,0.1)] rounded-full text-[#6a6662] text-sm font-bold uppercase tracking-wide cursor-pointer hover:text-cream hover:bg-[rgba(255,255,255,0.05)] transition-all"
+                    className="flex-1 py-3 bg-transparent border border-medium rounded-full text-secondary text-sm font-bold uppercase tracking-wide cursor-pointer hover:text-cream hover:bg-dark3 transition-all"
                   >
                     Cancel
                   </button>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import Logo from './Logo';
+import ThemeToggle from './ThemeToggle';
 
 export default function Navbar() {
   const { totalItems, setIsOpen } = useCart();
@@ -36,7 +37,7 @@ export default function Navbar() {
     <>
       <nav
         className="fixed top-0 left-0 w-full z-[999] flex items-center justify-between px-[5%] h-[68px]
-                   bg-[rgba(20,20,20,0.92)] backdrop-blur-md border-b border-[rgba(245,166,35,0.15)]"
+                   bg-nav backdrop-blur-md border-b border-goldline transition-colors duration-300"
         aria-label="Main navigation"
       >
         <Link to="/" aria-label="ZyArc Home">
@@ -54,6 +55,8 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-3">
+          <ThemeToggle className="hidden sm:flex" />
+
           <button
             onClick={() => setIsOpen(true)}
             className="relative text-muted hover:text-gold transition-colors text-lg bg-transparent border-none cursor-pointer flex items-center"
@@ -75,7 +78,7 @@ export default function Navbar() {
             to="/menu"
             className="hidden md:inline-block bg-gold hover:bg-gold2 text-[#111] font-bold
                         py-3 px-6 rounded-full text-sm transition-all duration-200
-                        hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(245,166,35,0.35)] no-underline"
+                        hover:-translate-y-0.5 hover:shadow-gold-btn no-underline"
           >
             Order Online
           </Link>
@@ -86,9 +89,9 @@ export default function Navbar() {
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
           >
-            <span className={`block w-[26px] h-[2px] bg-cream rounded transition-all duration-300 ${menuOpen ? 'translate-y-[7px] rotate-45' : ''}`} />
-            <span className={`block w-[26px] h-[2px] bg-cream rounded transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
-            <span className={`block w-[26px] h-[2px] bg-cream rounded transition-all duration-300 ${menuOpen ? '-translate-y-[7px] -rotate-45' : ''}`} />
+            <span className={`block w-[26px] h-[2px] rounded transition-all duration-300 bg-[var(--hamburger)] ${menuOpen ? 'translate-y-[7px] rotate-45' : ''}`} />
+            <span className={`block w-[26px] h-[2px] rounded transition-all duration-300 bg-[var(--hamburger)] ${menuOpen ? 'opacity-0' : ''}`} />
+            <span className={`block w-[26px] h-[2px] rounded transition-all duration-300 bg-[var(--hamburger)] ${menuOpen ? '-translate-y-[7px] -rotate-45' : ''}`} />
           </button>
         </div>
       </nav>
@@ -101,9 +104,13 @@ export default function Navbar() {
             aria-hidden="true"
           />
           <div
-            className="fixed top-[68px] left-0 w-full bg-[rgba(20,20,20,0.97)] z-[998]
-                        px-[5%] py-6 border-b border-[rgba(245,166,35,0.2)] md:hidden animate-fadeIn"
+            className="fixed top-[68px] left-0 w-full bg-nav-mobile z-[998]
+                        px-[5%] py-6 border-b border-goldline md:hidden animate-fadeIn transition-colors duration-300"
           >
+            <div className="flex items-center justify-between py-3 mb-2 border-b border-light">
+              <span className="text-sm font-semibold text-subtle uppercase tracking-widest">Theme</span>
+              <ThemeToggle />
+            </div>
             {navLinks.map(([to, label]) => (
               <NavLink
                 key={to}
@@ -111,7 +118,7 @@ export default function Navbar() {
                 end={to === '/'}
                 onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
-                  `block py-3 text-lg font-bold border-b border-[rgba(255,255,255,0.06)] no-underline ${isActive ? 'text-gold' : 'text-muted hover:text-gold'}`
+                  `block py-3 text-lg font-bold border-b border-light no-underline ${isActive ? 'text-gold' : 'text-muted hover:text-gold'}`
                 }
               >
                 {label}
