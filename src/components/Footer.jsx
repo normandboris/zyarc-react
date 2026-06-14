@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import ThemeToggle from './ThemeToggle';
 
 export default function Footer() {
   return (
@@ -55,8 +56,9 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-light pt-5 flex flex-col sm:flex-row justify-between gap-2 text-xs text-dim">
+      <div className="border-t border-light pt-5 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-dim">
         <span>© {new Date().getFullYear()} ZyArc. All rights reserved.</span>
+        <ThemeToggle />
         <span>Made with ❤️ in React + Tailwind</span>
       </div>
     </footer>

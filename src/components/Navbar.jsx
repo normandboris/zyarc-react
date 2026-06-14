@@ -19,7 +19,7 @@ export default function Navbar() {
   }, [menuOpen]);
 
   const linkClass = ({ isActive }) =>
-    `text-xs font-bold uppercase tracking-widest pb-0.5 border-b-2 transition-all duration-200 no-underline ${
+    `text-xs font-bold uppercase tracking-widest pb-0.5 border-b-2 transition-all duration-200 no-underline whitespace-nowrap ${
       isActive
         ? 'text-gold border-gold'
         : 'text-muted border-transparent hover:text-gold hover:border-gold'
@@ -36,17 +36,23 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="fixed top-0 left-0 w-full z-[999] flex items-center justify-between px-[5%] h-[68px]
-                   bg-nav backdrop-blur-md border-b border-goldline transition-colors duration-300"
+        className="fixed top-0 left-0 w-full z-[999] px-[5%] h-[68px]
+                   bg-nav backdrop-blur-md border-b border-goldline transition-colors duration-300
+                   grid grid-cols-[auto_1fr_auto] items-center gap-3 min-w-0"
         aria-label="Main navigation"
       >
-        <Link to="/" aria-label="ZyArc Home">
-          <Logo />
-        </Link>
+        {/* Left: logo + theme (always visible) */}
+        <div className="flex items-center gap-3 min-w-0">
+          <Link to="/" aria-label="ZyArc Home" className="flex-shrink-0">
+            <Logo />
+          </Link>
+          <ThemeToggle showLabel={false} className="!px-2 !py-1.5 sm:!px-3 sm:!py-2" />
+        </div>
 
-        <ul className="hidden md:flex gap-8 list-none items-center">
+        {/* Center: desktop nav */}
+        <ul className="hidden lg:flex gap-5 xl:gap-8 list-none items-center justify-center min-w-0 overflow-hidden">
           {navLinks.map(([to, label]) => (
-            <li key={to}>
+            <li key={to} className="flex-shrink-0">
               <NavLink to={to} end={to === '/'} className={linkClass}>
                 {label}
               </NavLink>
@@ -54,9 +60,8 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-3">
-          <ThemeToggle />
-
+        {/* Right: cart + order + mobile menu */}
+        <div className="flex items-center gap-2 sm:gap-3 justify-end flex-shrink-0">
           <button
             onClick={() => setIsOpen(true)}
             className="relative text-muted hover:text-gold transition-colors text-lg bg-transparent border-none cursor-pointer flex items-center"
@@ -76,15 +81,15 @@ export default function Navbar() {
 
           <Link
             to="/menu"
-            className="hidden md:inline-block bg-gold hover:bg-gold2 text-[#111] font-bold
-                        py-3 px-6 rounded-full text-sm transition-all duration-200
-                        hover:-translate-y-0.5 hover:shadow-gold-btn no-underline"
+            className="hidden sm:inline-block bg-gold hover:bg-gold2 text-[#111] font-bold
+                        py-2.5 px-4 lg:py-3 lg:px-6 rounded-full text-xs lg:text-sm transition-all duration-200
+                        hover:-translate-y-0.5 hover:shadow-gold-btn no-underline whitespace-nowrap"
           >
             Order Online
           </Link>
 
           <button
-            className="md:hidden flex flex-col gap-[5px] bg-transparent border-none cursor-pointer p-1"
+            className="lg:hidden flex flex-col gap-[5px] bg-transparent border-none cursor-pointer p-1 flex-shrink-0"
             onClick={() => setMenuOpen(o => !o)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
@@ -99,13 +104,13 @@ export default function Navbar() {
       {menuOpen && (
         <>
           <div
-            className="fixed inset-0 top-[68px] bg-black/50 z-[997] md:hidden"
+            className="fixed inset-0 top-[68px] bg-black/50 z-[997] lg:hidden"
             onClick={() => setMenuOpen(false)}
             aria-hidden="true"
           />
           <div
             className="fixed top-[68px] left-0 w-full bg-nav-mobile z-[998]
-                        px-[5%] py-6 border-b border-goldline md:hidden animate-fadeIn transition-colors duration-300"
+                        px-[5%] py-6 border-b border-goldline lg:hidden animate-fadeIn transition-colors duration-300"
           >
             <div className="flex items-center justify-between py-3 mb-2 border-b border-light">
               <span className="text-sm font-semibold text-subtle uppercase tracking-widest">Theme</span>
