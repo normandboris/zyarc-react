@@ -55,7 +55,7 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-3">
-          <ThemeToggle className="hidden sm:flex" />
+          <ThemeToggle />
 
           <button
             onClick={() => setIsOpen(true)}
